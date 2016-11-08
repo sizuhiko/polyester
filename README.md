@@ -33,6 +33,9 @@ Polymer標準の[molecules](https://elements.polymer-project.org/browse?package=
 
 `embed.js` のオプションはタグの属性で指定できるようにしたい。
 
+記事のヘッダー部にはYaml形式のFrontMatterを使う。
+[js-yaml-front-matter](https://github.com/dworthen/js-yaml-front-matter)を使えば、フロントエンド側でコンテンツとFrontMatterをうまく解釈できそう。
+
 ## タグクラウド
 
 [poly-cloud](https://customelements.io/RenatoUtsch/poly-cloud/)というのが見た目がかっこよくていい。
