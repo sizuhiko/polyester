@@ -17,6 +17,13 @@ Static Site Generator made by Polymer
 
 `iron-scroll-threshold` を使って、スクロール時の自動読み込みに対応する予定（10件ずつぐらい）
 
+一覧の形式
+
+- 全記事（新しい順）
+- 年単位
+- 月単位
+- タグ単位
+
 ## マークダウンの表示
 
 [embed.js](http://riteshkr.com/embed.js/)を使ったカスタムエレメントを作って、記事をマークダウンから表示できるようにしたい
