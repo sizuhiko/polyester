@@ -51,6 +51,10 @@ gravatarのカスタムエレメントがある
 - https://customelements.io/vision89/lazy-gravatar/
 - https://customelements.io/fakiolinho/gravatar-component/
 
+## SEO対策
+
+- http://www.captaincodeman.com/app-metadata/components/app-metadata/
+
 ## Polymerのバージョン
 
 これから作るので 2.x 系でやるつもり
