@@ -1,4 +1,6 @@
 # polyester
+
+[![Join the chat at https://gitter.im/sizuhiko_polyester/Lobby](https://badges.gitter.im/sizuhiko_polyester/Lobby.svg)](https://gitter.im/sizuhiko_polyester/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 Static Site Generator made by Polymer
 
 とりあえず案をまとめていく
