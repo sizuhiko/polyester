@@ -56,6 +56,8 @@ Polymer標準の[molecules](https://elements.polymer-project.org/browse?package=
 
 CLIツールはPolymerとの親和性を考えると Node.js で作るのが良いだろうか？
 
+Node.jsなら[Clite](https://github.com/remy/clite)というCLIフレームワークが良さそう
+
 ## URLルーティングとコンテンツの読み込み
 
 ### マークダウンファイル
