@@ -44,6 +44,13 @@ Polymer標準の[molecules](https://elements.polymer-project.org/browse?package=
 [poly-cloud](https://customelements.io/RenatoUtsch/poly-cloud/)というのが見た目がかっこよくていい。
 カスタムエレメント化して、sitemapのタグ情報とうまく連携できるようにしたい
 
+## プロフィール表示
+
+gravatarのカスタムエレメントがある
+
+- https://customelements.io/vision89/lazy-gravatar/
+- https://customelements.io/fakiolinho/gravatar-component/
+
 ## Polymerのバージョン
 
 これから作るので 2.x 系でやるつもり
