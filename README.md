@@ -102,6 +102,13 @@ Node.jsなら[Clite](https://github.com/remy/clite)というCLIフレームワ�
 
 記事一覧、記事詳細、タグクラウドなんかのカスタムエレメントやCLIがジェネレータとして用意する肝な部分。
 
+### テンプレートシステム
+
+ただしGitHubなどでテンプレートを作って共有する仕組みは入れたい。
+
+`polyester init` みたいなコマンドを実行したときに、スケルトンからページテンプレートを取得してくるようなイメージがいいなーと。
+テンプレート指定する場合は `polyester init --template https://github.com/xxxx/polyester-template.git` みたいな
+
 ## そのほか
 
 - カスタムドメインとかHTTPSとかは、CloudFlareとかGitHub Pagesにおまかせしたい
