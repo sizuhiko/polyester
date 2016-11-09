@@ -109,6 +109,9 @@ Node.jsなら[Clite](https://github.com/remy/clite)というCLIフレームワ�
 `polyester init` みたいなコマンドを実行したときに、スケルトンからページテンプレートを取得してくるようなイメージがいいなーと。
 テンプレート指定する場合は `polyester init --template https://github.com/xxxx/polyester-template.git` みたいな
 
+GitHubと連携するNode.jsのライブラリ
+http://www.nodegit.org/
+
 ## そのほか
 
 - カスタムドメインとかHTTPSとかは、CloudFlareとかGitHub Pagesにおまかせしたい
