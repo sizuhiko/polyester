@@ -95,6 +95,10 @@ Node.jsなら[Clite](https://github.com/remy/clite)というCLIフレームワ�
 
 ルーティング用のカスタムエレメントが必要になると思っている。
 
+github.ioでSPAのルーティングとかどうやってやるんだろうと思ったら、もうやっている人がいた。404.htmlを使うとか頭いい
+
+https://github.com/rafrex/spa-github-pages
+
 ## レイアウトやスタイル
 
 基本的にはPolymerのテーマを[material palette](https://www.materialpalette.com/)で作って色を適用するのと、
