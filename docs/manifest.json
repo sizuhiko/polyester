@@ -1,0 +1,7 @@
+{
+  "name": "polyester-prototype",
+  "short_name": "polyester-prototype",
+  "description": "polyester prototype",
+  "start_url": "/",
+  "display": "standalone"
+}

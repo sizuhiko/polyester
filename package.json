@@ -1,0 +1,14 @@
+{
+  "name": "polyester-prototype",
+  "version": "0.1.0",
+  "description": "this is prototype for static site generator by polymer",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "polymer-cli": "^0.17.0"
+  }
+}
