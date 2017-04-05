@@ -1,0 +1,79 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="urijs.html">
+
+<script src="../../scripts/js-yaml-front-client.min.js"></script>
+<script src="../../bower_components/marked/lib/marked.js"></script>
+<script src="../../bower_components/xregexp/xregexp-all.js"></script>
+
+<dom-module id="gh-article">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      h1 {
+        cursor: pointer;
+      }
+    </style>
+    <h1 id="title">[[_content.title]]</h1>
+    <p>[[_content.date]]</p>
+    <template is="dom-repeat" items="[[_content.tags]]" as="tag">
+      <span class="tag">[[tag]]</span>
+    </template>
+    <div id="content"></div>
+    <iron-ajax auto url="[[item.download_url]]" handle-as="text" on-response="_onResponse"></iron-ajax>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'gh-article',
+      properties: {
+        item: Object,
+        _content: Object,
+        _renderer: Object,
+        _scripts: Array
+      },
+      listeners: {
+        'title.tap': '_linkToDetailPage',
+      },
+      _onResponse: function (event) {
+        this._content = jsyaml.loadFront(event.detail.response);
+        this.$.content.innerHTML = marked(this._content.__content, {renderer: this._renderer});
+        var scripts = this.$.content.querySelectorAll('.script');
+        for (var i = 0; i < scripts.length; i++) {
+          var tag = document.createElement('script');
+          for (var j = 0; j < this._scripts[i].attributes.length; j++) {
+            tag.setAttribute([this._scripts[i].attributes[j].name], this._scripts[i].attributes[j].value);
+          }
+          Polymer.dom(scripts[i]).appendChild(tag);
+        }
+        this.fire('rendered', event.detail);
+      },
+      _linkToDetailPage: function() {
+        var uri = new URI(this.item.download_url);
+        // from {year}-{month}-{day}-{slug}.html.markdown
+        var pattern = XRegExp('^(?<year>  [0-9]{4} ) -?        # year  \n\
+                                (?<month> [0-9]{2} ) -?        # month \n\
+                                (?<day>   [0-9]{2} ) -?        # day \n\
+                                (?<slug> .+ )\.html\.markdown$ # slug', 'x');
+        // to /:year/:month/:day/:slug
+        location.href = XRegExp.replace(uri.filename(), pattern, '#/${year}/${month}/${day}/${slug}');
+      },
+      ready: function () {
+        this._scripts = [];
+        this._renderer = new marked.Renderer();
+        this._renderer.html = function (html) {
+          var div = document.createElement('div');
+          div.innerHTML = html;
+          if (div.firstChild.nodeName.toLocaleLowerCase() === 'script') {
+            this._scripts.push(div.firstChild);
+            return '<div class="script" data-script-id="'+(this._scripts.length - 1)+'"></div>';
+          } else {
+            return html;
+          }
+        }.bind(this);
+      }
+    });
+  </script>
+</dom-module>

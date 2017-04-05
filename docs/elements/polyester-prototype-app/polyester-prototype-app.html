@@ -1,0 +1,99 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="../../bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../../bower_components/app-layout/app-scroll-effects/effects/waterfall.html">
+<link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../../bower_components/app-route/app-location.html">
+<link rel="import" href="../../bower_components/app-route/app-route.html">
+
+<link rel="import" href="gh-articles.html">
+<link rel="import" href="urijs.html">
+
+<dom-module id="polyester-prototype-app">
+  <template>
+    <style>
+      :host {
+        display: block;
+        --app-primary-color: #404040;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      }
+      app-drawer-layout app-header-layout app-header {
+        background: #9b0807;
+        background-image: url(../../images/top-opera3.jpg);
+        background-position: left center;
+        background-repeat: no-repeat;
+        color: white;
+        font-size: 60px;
+        font-weight: 800;
+      }
+      app-drawer app-toolbar {
+        background: linear-gradient(rgb(177, 11, 11), rgb(159, 9, 8));
+      };
+      app-toolbar {
+        height: 100px;
+      }
+    </style>
+    <app-location route="{{route}}" use-hash-as-path></app-location>
+    <app-route
+        route="{{route}}"
+        pattern="/:year/:month/:day/:slug"
+        data="{{query}}"
+        active="{{detail}}"></app-route>
+    <app-drawer-layout>
+      <app-drawer id="drawer">
+        <app-header-layout has-scrolling-region>
+
+          <app-header fixed>
+            <!-- top toolbar -->
+            <app-toolbar></app-toolbar>
+          </app-header>
+
+          <!-- nav menu -->
+
+        </app-header-layout>
+      </app-drawer>
+
+      <!-- main panel -->
+      <app-header-layout>
+
+        <app-header fixed effects="waterfall" class="main-header">
+
+          <app-toolbar class="title-toolbar main-title-toolbar">
+            <div class="title">ブログタイトル</div>
+          </app-toolbar>
+
+        </app-header>
+
+        <!-- list/detail pages -->
+        <iron-pages selected="[[selectedPage(query.*)]]" fallback-selection="0">
+          <gh-articles user="sizuhiko" repository="sizuhiko.github.io" branch="source" directory="source"></gh-articles>
+          <gh-article item="[[selectedItem(query.*)]]"></gh-article>
+        </iron-pages>
+      </app-header-layout>
+    </app-drawer-layout>
+
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'polyester-prototype-app',
+
+      properties: {
+        query: Object,
+        detail: Boolean,
+      },
+      selectedPage: function(query) {
+        return this.detail ? '1' : '0';
+      },
+      selectedItem: function(query) {
+        if(this.detail) {
+          return {download_url: URI.expand('https://raw.githubusercontent.com/sizuhiko/sizuhiko.github.io/source/source/{year}-{month}-{day}-{slug}.html.markdown', this.query)};
+        }
+      },
+    });
+  </script>
+</dom-module>

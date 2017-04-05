@@ -1,0 +1,89 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/iron-list/iron-list.html">
+<link rel="import" href="../../bower_components/iron-scroll-threshold/iron-scroll-threshold.html">
+
+<link rel="import" href="gh-article.html">
+
+<dom-module id="gh-articles">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <iron-list items="[[_loadedItems]]" as="item" id="articles" scroll-target="document">
+      <template>
+        <gh-article item="[[item]]" on-rendered="_resize"></gh-article>
+      </template>
+    </iron-list>
+    <div class="loader">Fetching new items...</div>
+
+    <iron-scroll-threshold on-lower-threshold="_load" lower-threshold="500" id="threshold" scroll-target="document"></iron-scroll-threshold>
+    <iron-ajax auto url="https://api.github.com/repos/[[user]]/[[repository]]/contents/[[directory]]?ref=[[branch]]&access_token=[[token]]" on-response="_triggerThreshold" last-response="{{items}}"></iron-ajax>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'gh-articles',
+      properties: {
+        user: String,
+        repository: String,
+        branch: {
+          type: String,
+          value: 'master'
+        },
+        directory: String,
+        token: {
+          type: String,
+          value: '86ea177fdd3d72f37bc086d67e21100767d93f55'
+        },
+        items: {
+          type: Array
+        },
+        _loadedItems: {
+          type: Array,
+          value: function () {
+            return [];
+          }
+        },
+        _count: {
+          type: Number,
+          value: 0
+        },
+      },
+      _isMarkdown: function (item) {
+        return item && (item.type === 'file') && (item.name.match(/^(\d+)-(\d+)-(\d+)-.*.markdown$/));
+      },
+      _sort: function(a, b) {
+        var l = a.name.match(/^(\d+)-(\d+)-(\d+)-.*.markdown$/);
+        var r = b.name.match(/^(\d+)-(\d+)-(\d+)-.*.markdown$/);
+        return (r[1] * 10000 + r[2] * 100 + r[3]) - (l[1] * 10000 + l[2] * 100 + l[3]);
+      },
+      _load: function (event) {
+        if (this.items && this.items.length > 0) {
+          this.async(function() {
+            this._copyItems();
+          }.bind(this), 500);
+        }
+      },
+      _triggerThreshold: function () {
+        this.items = this.items.filter(this._isMarkdown).sort(this._sort);
+        this._copyItems();
+      },
+      _copyItems: function () {
+        this.items.slice(this._count, this._count + 5).forEach(function (item) {
+          this.push('_loadedItems', item);
+        }.bind(this));
+        this._count += 5;
+        this.$.threshold.clearTriggers();
+      },
+      _resize: function () {
+        this.$.articles.notifyResize();
+      },
+      ready: function () {
+      }
+    });
+  </script>
+</dom-module>
