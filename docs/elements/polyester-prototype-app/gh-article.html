@@ -1,6 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="urijs.html">
+<link rel="import" href="prismjs.html">
 
 <script src="../../scripts/js-yaml-front-client.min.js"></script>
 <script src="../../bower_components/marked/lib/marked.js"></script>
@@ -8,12 +9,23 @@
 
 <dom-module id="gh-article">
   <template>
+    <style include="prism-theme-polyester"></style>
     <style>
       :host {
         display: block;
       }
       h1 {
         cursor: pointer;
+      }
+      .highlight {
+        box-sizing: border-box;
+        display: block;
+        border: 1px dashed #aaa;
+        background-color: #f8f8f8;
+        padding: 1% 2%;
+        margin: 0 0 0.85em 0;
+        overflow: auto;
+        width: 96%;
       }
     </style>
     <h1 id="title">[[_content.title]]</h1>
@@ -39,7 +51,7 @@
       },
       _onResponse: function (event) {
         this._content = jsyaml.loadFront(event.detail.response);
-        this.$.content.innerHTML = marked(this._content.__content, {renderer: this._renderer});
+        Polymer.dom(this.$.content).innerHTML = marked(this._content.__content, {renderer: this._renderer});
         var scripts = this.$.content.querySelectorAll('.script');
         for (var i = 0; i < scripts.length; i++) {
           var tag = document.createElement('script');
@@ -72,6 +84,12 @@
           } else {
             return html;
           }
+        }.bind(this);
+        this._renderer.code = function (code, lang) {
+          if (!lang || !Prism.languages[lang]) {
+            lang = 'clike';
+          }
+          return '<pre class="highlight"><code class="language-' + lang + '">' + Prism.highlight(code, Prism.languages[lang]) + '</code></pre>';
         }.bind(this);
       }
     });

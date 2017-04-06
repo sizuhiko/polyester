@@ -40,5 +40,4 @@ jspm_packages
 .node_repl_history
 
 .envrc
-bower_components/
 .brackets.json

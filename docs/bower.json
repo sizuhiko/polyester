@@ -17,17 +17,12 @@
     "iron-media-query": "PolymerElements/iron-media-query#^1.0.8",
     "paper-icon-button": "PolymerElements/paper-icon-button#^1.1.4",
     "paper-styles": "PolymerElements/paper-styles#^1.2.0",
-    "gh3": "^1.0.3",
-    "jquery": "^3.2.0",
-    "octokat": "^0.6.3",
     "iron-scroll-threshold": "PolymerElements/iron-scroll-threshold#^1.0.3",
     "iron-list": "PolymerElements/iron-list#^1.4.5",
-    "embed-js": "^4.2.1",
     "marked": "^0.3.6",
-    "htmlparser": "^2.0.0",
-    "modulex-html-parser": "^1.0.2",
     "urijs": "^1.18.10",
-    "xregexp": "^3.1.1"
+    "xregexp": "^3.1.1",
+    "prism": "^1.6.0"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
