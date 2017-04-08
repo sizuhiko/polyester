@@ -2,6 +2,7 @@
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../../bower_components/iron-list/iron-list.html">
 <link rel="import" href="../../bower_components/iron-scroll-threshold/iron-scroll-threshold.html">
+<link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
 
 <link rel="import" href="gh-article.html">
 
@@ -11,6 +12,11 @@
       :host {
         display: block;
       }
+      footer {
+        display: block;
+        text-align: center;
+        margin: 2em;
+      }
     </style>
 
     <iron-list items="[[_loadedItems]]" as="item" id="articles" scroll-target="document">
@@ -18,7 +24,9 @@
         <gh-article item="[[item]]" on-rendered="_resize"></gh-article>
       </template>
     </iron-list>
-    <div class="loader">Fetching new items...</div>
+    <footer>
+      <paper-spinner alt="Fetching new items..." active></paper-spinner>
+    </footer>
 
     <iron-scroll-threshold on-lower-threshold="_load" lower-threshold="500" id="threshold" scroll-target="document"></iron-scroll-threshold>
     <iron-ajax auto url="https://api.github.com/repos/[[user]]/[[repository]]/contents/[[directory]]?ref=[[branch]]&access_token=[[token]]" on-response="_triggerThreshold" last-response="{{items}}"></iron-ajax>

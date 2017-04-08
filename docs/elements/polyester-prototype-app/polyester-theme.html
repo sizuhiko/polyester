@@ -1,0 +1,109 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-styles/paper-styles.html">
+
+<dom-module id="polyester-theme">
+  <template>
+    <style is="custom-style">
+      :root {
+        --dark-primary-color:       #9b0807;
+        --default-primary-color:    #F44336;
+        --light-primary-color:      #FFCDD2;
+        --text-primary-color:       #FFFFFF;
+        --accent-color:             #FFC107;
+        --primary-background-color: #FFCDD2;
+        --primary-text-color:       #212121;
+        --secondary-text-color:     #757575;
+        --disabled-text-color:      #BDBDBD;
+        --divider-color:            #BDBDBD;
+
+
+        /* Components */
+
+        /* paper-drawer-panel */
+        --drawer-menu-color:           #ffffff;
+        --drawer-border-color:         1px solid #ccc;
+        --drawer-toolbar-border-color: 1px solid rgba(0, 0, 0, 0.22);
+
+        /* paper-menu */
+        --paper-menu-background-color: #fff;
+        --menu-link-color:             #111111;
+
+        /* paper-input */
+        --paper-input-container-color:       rgba(255, 255, 255, 0.64);
+        --paper-input-container-focus-color: rgba(255, 255, 255, 1);
+        --paper-input-container-input-color: #fff;
+
+        /** ブログのヘッダー */
+        --polyester-header: {
+          background: linear-gradient(rgb(177, 11, 11), rgb(159, 9, 8));
+        };
+
+        /** ブログのヘッダー高さ */
+        --polyester-header-height: 100px;
+
+        /** ブログのタイトルバー部分 */
+        --polyester-titlebar: {
+          height: var(--polyester-header-height);
+          background-image: url(../../images/top-opera3.jpg);
+          background-position: right center;
+          background-repeat: no-repeat;
+        };
+
+        /** ブログのタイトル */
+        --polyester-title: {
+          @apply(--paper-font-headline);
+          color: var(--text-primary-color);
+        };
+
+        /** ブログのサブタイトル */
+        --polyester-sub-title: {
+          @apply(--paper-font-caption);
+          color: var(--text-primary-color);
+          margin-left: 1em;
+        };
+
+        --polyester-sidebar: {
+          text-align: left;
+          padding: 20px;
+        };
+
+        /** 記事のタイトル */
+        --polyester-article-title: {
+          @apply(--paper-font-title);
+          margin-bottom: 0;
+        };
+
+        /** 記事のタイムスタンプ */
+        --polyester-article-timestamp: {
+          font-size: 10px;
+        };
+
+        /** 記事のタグ */
+        --polyester-article-tag: {
+          @apply(--paper-font-caption);
+          font-weight: bold;
+        };
+
+        /** 記事の本文 */
+        --polyester-article-content: {
+          @apply(--paper-font-body1);
+          margin-bottom: 3em;
+        };
+
+        /** 記事のコードハイライト */
+        --polyester-article-code: {
+          @apply(--paper-font-code1);
+          font-size: 12px;
+          box-sizing: border-box;
+          display: block;
+          border: 1px dashed #aaa;
+          background-color: #f8f8f8;
+          padding: 1% 2%;
+          margin: 0 0 0.85em 0;
+          overflow: auto;
+        };
+
+      }
+    </style>
+  </template>
+</dom-module>

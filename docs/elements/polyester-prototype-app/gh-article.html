@@ -1,35 +1,40 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="urijs.html">
+<link rel="import" href="polyester-theme.html">
 <link rel="import" href="prismjs.html">
 
 <script src="../../scripts/js-yaml-front-client.min.js"></script>
 <script src="../../bower_components/marked/lib/marked.js"></script>
+<script src="../../bower_components/moment/moment.js"></script>
+<script src="../../bower_components/moment/locale/ja.js"></script>
 <script src="../../bower_components/xregexp/xregexp-all.js"></script>
 
 <dom-module id="gh-article">
   <template>
-    <style include="prism-theme-polyester"></style>
-    <style>
+    <style include="polyester-theme prism-theme-polyester">
       :host {
         display: block;
       }
       h1 {
+        @apply(--polyester-article-title);
         cursor: pointer;
       }
+      .timestamp {
+        @apply(--polyester-article-timestamp);
+      }
+      .tag {
+        @apply(--polyester-article-tag);
+      }
+      #content {
+        @apply(--polyester-article-content);
+      }
       .highlight {
-        box-sizing: border-box;
-        display: block;
-        border: 1px dashed #aaa;
-        background-color: #f8f8f8;
-        padding: 1% 2%;
-        margin: 0 0 0.85em 0;
-        overflow: auto;
-        width: 96%;
+        @apply(--polyester-article-code);
       }
     </style>
     <h1 id="title">[[_content.title]]</h1>
-    <p>[[_content.date]]</p>
+    <p class="timestamp">[[_formatTimestamp(_content.date)]]</p>
     <template is="dom-repeat" items="[[_content.tags]]" as="tag">
       <span class="tag">[[tag]]</span>
     </template>
@@ -49,6 +54,10 @@
       listeners: {
         'title.tap': '_linkToDetailPage',
       },
+      _formatTimestamp: function (datetime) {
+        moment.locale('ja');
+        return moment(datetime).format('LLLL');
+      },
       _onResponse: function (event) {
         this._content = jsyaml.loadFront(event.detail.response);
         Polymer.dom(this.$.content).innerHTML = marked(this._content.__content, {renderer: this._renderer});
@@ -58,8 +67,13 @@
           for (var j = 0; j < this._scripts[i].attributes.length; j++) {
             tag.setAttribute([this._scripts[i].attributes[j].name], this._scripts[i].attributes[j].value);
           }
+          tag.onload = function(){
+            this.fire('rendered', event.detail);
+          }.bind(this);
+          delete this._scripts[i];
           Polymer.dom(scripts[i]).appendChild(tag);
         }
+        this.updateStyles();
         this.fire('rendered', event.detail);
       },
       _linkToDetailPage: function() {
